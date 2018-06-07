@@ -1,0 +1,8 @@
+.env
+node_modules/
+.idea/
+build/
+up-production.json
+.env_dev
+.env_issue
+.env_production
