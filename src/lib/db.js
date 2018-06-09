@@ -1,6 +1,7 @@
 import mysql from 'mysql'
 import Cache from 'ttl'
 import crypto from 'crypto'
+
 require('dotenv').config();
 function hash (query, params) {
     return crypto.createHash('md5').update(JSON.stringify({query, params})).digest('hex')
@@ -35,7 +36,7 @@ class DB {
 
     async findOne (q, params) {
         const result = await this.query(q, params)
-        return result.rows[0]
+        return result.length ? result[0] : []
     }
 
     async cachedFindOne (q, params) {

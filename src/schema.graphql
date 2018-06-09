@@ -3,8 +3,21 @@ schema {
   mutation: Mutation
 }
 
+type SearchAutoComplete {
+  id: ID!
+  name: String!
+  collectionName: String!
+  documentId: String!
+}
+type AutoComplete {
+  autoComplete: [SearchAutoComplete]
+}
+
 type News {
   id: ID
+  userId: String
+  username: String
+  email: String
   title: String
   content: String
   date: String
@@ -12,16 +25,62 @@ type News {
 
 type NewsAll {
   news: [News]
+  pagination: Pagination
 }
 
+type Users {
+  id: ID!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String
+  lastNme: String
+  role: String
+  duties: String
+}
+type Pagination {
+  # total number of records mathing search criteria
+  total: Int
+  # number of current page
+  page: Int!
+  # total number of pages
+  pages: Int
+  # limit per page
+  limit: Int!
+}
+input Page {
+  # how many items per page
+  limit: Int! = 10
+
+  # which page to get, counted from 1
+  page: Int! = 1
+}
+type SimpleResponseReason {
+  code: String
+  message: String
+}
+type SimpleResponse {
+  success: Boolean!
+  reason: SimpleResponseReason
+}
+type SignInResponse {
+  result: SimpleResponse!
+  token: String
+}
 type Query {
-  news: News
-  newsAll: [News]
+  autoComplete (
+    regex: String!
+    limit: Int
+  ): AutoComplete
+  news (
+    id: ID
+  ): News
+  newsAll (
+    page: Page
+  ): NewsAll
+  signIn: Users
 }
 
 type Mutation {
-  newsCreate(
-
-    title: String!
-  ): News
+  signIn(username: String! password: String!): SignInResponse
 }
