@@ -11,8 +11,33 @@ type SearchAutoComplete {
 }
 type AutoComplete {
   autoComplete: [SearchAutoComplete]
+  allResults: Int
+  pagination: Pagination
 }
-
+type Imgs {
+  fileName: String
+  alt: String
+}
+type Fields {
+  name: String
+  value: String
+}
+enum ArticleRoots {
+  POST_MOVIES
+}
+type Article {
+  _id: ID
+  root: ArticleRoots
+  fields: [Fields]
+  img: Imgs
+  title: String
+  content: String
+  copyright: String
+}
+type Articles {
+  articles: [Article]
+  pagination: Pagination
+}
 type News {
   id: ID
   userId: String
@@ -46,7 +71,7 @@ type Pagination {
   # total number of pages
   pages: Int
   # limit per page
-  limit: Int!
+  limit: Int
 }
 input Page {
   # how many items per page
@@ -71,14 +96,21 @@ type Query {
   autoComplete (
     regex: String!
     limit: Int
+    page: Int
   ): AutoComplete
   news (
     id: ID
   ): News
   newsAll (
+    id: [ID]
     page: Page
   ): NewsAll
   signIn: Users
+  articlesAll (
+    limit: Int
+    page: Int
+    root: ArticleRoots!
+  ): Articles
 }
 
 type Mutation {

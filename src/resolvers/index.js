@@ -1,12 +1,15 @@
 import * as news from './news'
 import * as user from './user'
-import * as autoComplete from './autocomplete'
+import * as search from './search'
+import * as article from './article'
 
 export default {
   Query: {
     news: (_, data, context) => news.single(data),
     newsAll: (_, data, context) => news.list(data),
-    autoComplete: (_, data, context) => autoComplete.getAutoCompleteResults(data)
+    autoComplete: (_, data, context) => search.getAutoCompleteResults(data),
+    articlesAll: (_, data, context) => article.list(data),
+    // searchResults: (_, data, context) => search.getSearchResults(data)
   },
   Mutation: {
     signIn: (_, data, context) => user.signIn(data)

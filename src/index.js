@@ -1,16 +1,18 @@
 import 'babel-polyfill'
 import express from 'express'
 import dotenv from 'dotenv'
-import {
-  usersMigrateFromSqlDatabase,
-  newsMigrateFromSqlDatabase
-} from './lib/migrations'
 import mySchema from './schema.graphql'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { graphqlExpress } from 'apollo-server-express'
 import cors from 'cors'
 import { makeExecutableSchema } from 'graphql-tools'
 import bodyParser from 'body-parser'
+import {
+  usersMigrateFromSqlDatabase,
+  newsMigrateFromSqlDatabase,
+  oldHtmlMigration
+} from './lib/migrations'
+
 
 dotenv.config({ path: `${__dirname}/.env` })
 const resolvers = require('./resolvers')
@@ -23,7 +25,9 @@ const schema = makeExecutableSchema({
     return err
   }
 })
-// newsMigrateFromSqlDatabase()
+
+
+
 const app = express();
 app.use(cors())
 app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({

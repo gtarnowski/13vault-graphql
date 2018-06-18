@@ -1,8 +1,8 @@
 import DB from './db'
 import Mongo from './mongo'
 import randomId from 'random-id'
-import { createRelatedAutocomplete } from '../resolvers/autocomplete'
-import pick from 'lodash/pick'
+import { createRelatedAutocomplete } from '../resolvers/search'
+import { extractPostapocalypticMovies } from '../lib/htmlExtraction'
 
 async function usersMigrateFromSqlDatabase () {
   const users = await DB.query(`SELECT * FROM schron_users`)
@@ -59,7 +59,14 @@ async function newsMigrateFromSqlDatabase () {
   Mongo.insert('News', allData)
 }
 
+async function oldHtmlMigration () {
+  const data = extractPostapocalypticMovies()
+  Mongo.insert('Articles', data)
+
+}
+
 export {
   usersMigrateFromSqlDatabase,
-  newsMigrateFromSqlDatabase
+  newsMigrateFromSqlDatabase,
+  oldHtmlMigration
 }
