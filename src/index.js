@@ -22,6 +22,7 @@ const schema = makeExecutableSchema({
   resolvers: resolvers.default,
   formatError: err => {
     console.log(err)
+    console.log(err)
     return err
   }
 })

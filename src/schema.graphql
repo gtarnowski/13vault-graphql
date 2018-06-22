@@ -2,17 +2,26 @@ schema {
   query: Query
   mutation: Mutation
 }
-
+type SearchResults {
+  results: [SearchResult]
+  pagination: Pagination
+}
+type SearchResult {
+  _id: ID
+  title: String
+  content: String
+  category: String
+  img: Imgs
+}
 type SearchAutoComplete {
-  id: ID!
+  _id: ID!
   name: String!
   collectionName: String!
   documentId: String!
 }
 type AutoComplete {
   autoComplete: [SearchAutoComplete]
-  allResults: Int
-  pagination: Pagination
+  allResultsCount: Int
 }
 type Imgs {
   fileName: String
@@ -39,12 +48,13 @@ type Articles {
   pagination: Pagination
 }
 type News {
-  id: ID
+  _id: ID
   userId: String
   username: String
   email: String
   title: String
   content: String
+  description: String
   date: String
 }
 
@@ -54,7 +64,7 @@ type NewsAll {
 }
 
 type Users {
-  id: ID!
+  _id: ID!
   email: String!
   username: String!
   password: String!
@@ -92,17 +102,16 @@ type SignInResponse {
   result: SimpleResponse!
   token: String
 }
+
 type Query {
   autoComplete (
     regex: String!
-    limit: Int
-    page: Int
   ): AutoComplete
   news (
-    id: ID
+    _id: ID
   ): News
   newsAll (
-    id: [ID]
+    _id: [ID]
     page: Page
   ): NewsAll
   signIn: Users
@@ -111,6 +120,11 @@ type Query {
     page: Int
     root: ArticleRoots!
   ): Articles
+  searchResults (
+    regex: String!
+    limit: Int
+    page: Int
+  ): SearchResults
 }
 
 type Mutation {

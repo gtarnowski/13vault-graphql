@@ -24,14 +24,15 @@ class Mongo {
     })
   }
 
-  find (name, query = {}, sort = {}, limit = 25) {
+  find (name, query = {}, options = {}) {
+    const { sort = {}, fields = {}, limit = 0 } = options
     return new Promise( ( resolve, reject ) => {
       mongo.connect(this.url, (err, db) => {
         if (err) throw err
         const database = db.db(this.name)
         const results = database
           .collection(name)
-          .find(query)
+          .find({ ...query, ...fields})
           .sort(sort)
           .limit(limit)
           .toArray()

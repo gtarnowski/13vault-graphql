@@ -8,8 +8,8 @@ export default {
     news: (_, data, context) => news.single(data),
     newsAll: (_, data, context) => news.list(data),
     autoComplete: (_, data, context) => search.getAutoCompleteResults(data),
+    searchResults: (_, data, context) => search.getSearchResults(data),
     articlesAll: (_, data, context) => article.list(data),
-    // searchResults: (_, data, context) => search.getSearchResults(data)
   },
   Mutation: {
     signIn: (_, data, context) => user.signIn(data)
