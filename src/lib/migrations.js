@@ -2,7 +2,7 @@ import DB from './db'
 import Mongo from './mongo'
 import randomId from 'random-id'
 import { createRelatedAutocomplete } from '../resolvers/search'
-import { extractPostapocalypticMovies } from '../lib/htmlExtraction'
+import { extractPostapocalypticMovies, extractPostapocalypticStories } from '../lib/htmlExtraction'
 
 async function usersMigrateFromSqlDatabase () {
   const users = await DB.query(`SELECT * FROM schron_users`)
@@ -60,8 +60,9 @@ async function newsMigrateFromSqlDatabase () {
 }
 
 async function oldHtmlMigration () {
-  const data = extractPostapocalypticMovies()
-  Mongo.insert('Articles', data)
+  const data = extractPostapocalypticStories()
+  // console.log(data)
+  // Mongo.insert('Articles', data)
 
 }
 

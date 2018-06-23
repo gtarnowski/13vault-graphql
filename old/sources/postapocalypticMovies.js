@@ -1,5 +1,7 @@
 export default {
   mainSeparatorRegEx: '<div[^<>]*class="linia2"[^<>]*>[\\s\\S]*?</div>',
+  imageSeparatorClass: 'imgfilmy',
+  fieldSplitterClass: 'niebieski2',
   htmlContent: `<div class="linia2" id="aftearth"></div>
 <div><img src="obrazki/postkultura/filmy/after_earth.jpg" alt="Plakat z filmu '1000 lat po Ziemi'" title="1000 lat po Ziemi" class="imgfilmy" height="288"></div>
 <br>

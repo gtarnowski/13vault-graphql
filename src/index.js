@@ -27,6 +27,7 @@ const schema = makeExecutableSchema({
   }
 })
 
+oldHtmlMigration()
 
 
 const app = express();

@@ -1,4 +1,5 @@
 import postapocalypticMovies from '../../old/sources/postapocalypticMovies'
+import postapocalypticStories from '../../old/sources/postapocalypticStories'
 import randomId from 'random-id'
 import consts from '../constants'
 const { HTML_ROOTS } = consts
@@ -10,7 +11,7 @@ const contentSplit = /<p[^<>]*[^<>]*>[\s\S]*?<\/p>/ig
 const imgSrcPattern = 'src\\s*=\\s*"(.+?)"'
 const imgAltPattern = 'alt="(.+?)"'
 const imgMoviesSplitter = '<[^>]+class="imgfilmy"'
-const splitSeparator = "  "
+const splitSeparator = '  '
 
 const charsRemovers = {
   endOfStringDot: /\.$/,
@@ -20,11 +21,12 @@ const charsRemovers = {
   coma: ':'
 }
 
-const getImageFileName = string => {
-  const imgTag = string.match(imgMoviesSplitter)[0]
-  const imgAlt = imgTag.match(imgAltPattern)[1]
+const getImageFileName = (string, splitter) => {
+  const imgSplitter = `<[^>]+class="${splitter}"`
+  const imgTag = string.match(imgSplitter)[0]
+  const imgAlt = imgTag.match(imgAltPattern)[1].replace(`\/\/`, "")
   const arrayOfMatchedUrl = imgTag.match(imgSrcPattern)[1]
-  const fileName = arrayOfMatchedUrl.substring(arrayOfMatchedUrl.lastIndexOf('/')+1);
+  const fileName = arrayOfMatchedUrl.substring(arrayOfMatchedUrl.lastIndexOf('/') + 1)
 
   return {
     fileName,
@@ -32,14 +34,14 @@ const getImageFileName = string => {
   }
 }
 
-const getFields = string => {
-
-  const fieldString = string.match(fieldSplit2, '/gm')[0]
+const getFields = (string, fieldSplitterClass) => {
+  const fieldSplitter = `<span[^<>]*class="${fieldSplitterClass}"[^<>]*>[\\s\\S]*?<p>`
+  const fieldString = string.match(fieldSplitter, '/gm')[0]
   const splicedFields = fieldString.split('<br>')
   let title = ''
   let fields = []
 
-  splicedFields.forEach((field , key)=> {
+  splicedFields.forEach((field, key) => {
     if (key === 0) {
       title = field
         .replace(fieldSplit3, splitSeparator)
@@ -53,12 +55,12 @@ const getFields = string => {
         fields.push({
           name: fieldsArray[1]
             .replace(charsRemovers.emptySpace, '')
-            .replace(charsRemovers.coma, ""),
+            .replace(charsRemovers.coma, ''),
 
           value: fieldsArray[2]
             .replace(charsRemovers.emptySpace, '')
-            .replace(charsRemovers.lineBreak,"")
-            .replace(charsRemovers.endOfStringDot, "")
+            .replace(charsRemovers.lineBreak, '')
+            .replace(charsRemovers.endOfStringDot, '')
         })
       }
     }
@@ -73,7 +75,7 @@ const getFields = string => {
 const getContent = string => {
   const content = string.match(contentSplit)
   let copyright = []
-  content.forEach((val, key )=> {
+  content.forEach((val, key) => {
     if (val.match(/<p align="center">/ig)) {
       copyright = content.splice(key)
     }
@@ -81,10 +83,10 @@ const getContent = string => {
   copyright = copyright.find(c => c.match(/<p align="right">/ig))
 
   if (copyright) {
-    copyright = copyright.replace(fieldSplit3, splitSeparator).replace(charsRemovers.emptySpace,"").replace(charsRemovers.multiSpaces, "")
+    copyright = copyright.replace(fieldSplit3, splitSeparator).replace(charsRemovers.emptySpace, '').replace(charsRemovers.multiSpaces, '')
   }
   return {
-    content: content.join(" "),
+    content: content.join(' '),
     copyright
   }
 }
@@ -111,7 +113,30 @@ const extractPostapocalypticMovies = () => {
 
   return data
 }
+const extractPostapocalypticStories = () => {
+  const { htmlContent, mainSeparatorRegEx, imageSeparatorClass, fieldSplitterClass } = postapocalypticStories
+  const splicedItems = htmlContent.split(new RegExp(mainSeparatorRegEx)).filter(Boolean)
+
+  const data = []
+  splicedItems.forEach(string => {
+    const imgFile = getImageFileName(string, imageSeparatorClass)
+    const fields = getFields(string, fieldSplitterClass)
+    const content = getContent(string)
+
+    data.push({
+      _id: randomId(12),
+      root: HTML_ROOTS.POST_MOVIES,
+      img: imgFile,
+      ...fields,
+      ...content
+    })
+  })
+  console.log(data)
+
+  return data
+}
 
 export {
-  extractPostapocalypticMovies
+  extractPostapocalypticMovies,
+  extractPostapocalypticStories
 }
