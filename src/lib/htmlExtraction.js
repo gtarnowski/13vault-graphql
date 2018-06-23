@@ -116,7 +116,7 @@ const extractPostapocalypticMovies = () => {
 const extractPostapocalypticStories = () => {
   const { htmlContent, mainSeparatorRegEx, imageSeparatorClass, fieldSplitterClass } = postapocalypticStories
   const splicedItems = htmlContent.split(new RegExp(mainSeparatorRegEx)).filter(Boolean)
-
+  console.log(splicedItems.length)
   const data = []
   splicedItems.forEach(string => {
     const imgFile = getImageFileName(string, imageSeparatorClass)
@@ -131,7 +131,6 @@ const extractPostapocalypticStories = () => {
       ...content
     })
   })
-  console.log(data)
 
   return data
 }
