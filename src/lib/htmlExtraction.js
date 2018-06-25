@@ -2,6 +2,7 @@ import postapocalypticMovies from '../../old/sources/postapocalypticMovies'
 import postapocalypticStories from '../../old/sources/postapocalypticStories'
 import randomId from 'random-id'
 import consts from '../constants'
+import isArray from 'lodash/array'
 const { HTML_ROOTS } = consts
 
 const fieldSplit = '<span[^<>]*class="niebieski"[^<>]*>[\\s\\S]*?</span>'
@@ -22,15 +23,18 @@ const charsRemovers = {
 }
 
 const getImageFileName = (string, splitter) => {
-  const imgSplitter = `<[^>]+class="${splitter}"`
-  const imgTag = string.match(imgSplitter)[0]
-  const imgAlt = imgTag.match(imgAltPattern)[1].replace(`\/\/`, "")
-  const arrayOfMatchedUrl = imgTag.match(imgSrcPattern)[1]
-  const fileName = arrayOfMatchedUrl.substring(arrayOfMatchedUrl.lastIndexOf('/') + 1)
+  if (isArray(splitter)) {
+    
+  } else {
+    const imgTag = string.match(splitter)[0].replace(/(\r\n\t|\n|\r\t)/gm, "")
+    const imgAlt = imgTag.match(imgAltPattern)[1].replace(`'`, "").replace(`\'`, "")
+    const arrayOfMatchedUrl = imgTag.match(imgSrcPattern)[1]
+    const fileName = arrayOfMatchedUrl.substring(arrayOfMatchedUrl.lastIndexOf('/') + 1)
 
-  return {
-    fileName,
-    alt: imgAlt
+    return {
+      fileName,
+      alt: imgAlt
+    }
   }
 }
 
@@ -52,16 +56,19 @@ const getFields = (string, fieldSplitterClass) => {
     } else {
       const fieldsArray = field.replace(fieldSplit3, splitSeparator).split(splitSeparator).filter(String).filter(Boolean)
       if (fieldsArray.length > 1) {
-        fields.push({
+        const fieldList = {
           name: fieldsArray[1]
             .replace(charsRemovers.emptySpace, '')
             .replace(charsRemovers.coma, ''),
 
-          value: fieldsArray[2]
+          value: (fieldsArray[2] || '')
             .replace(charsRemovers.emptySpace, '')
             .replace(charsRemovers.lineBreak, '')
             .replace(charsRemovers.endOfStringDot, '')
-        })
+        }
+        if (fieldList.name && fieldList.value) {
+          fields.push(fieldList)
+        }
       }
     }
   })
@@ -91,33 +98,11 @@ const getContent = string => {
   }
 }
 
-const extractPostapocalypticMovies = () => {
-  const { htmlContent, mainSeparatorRegEx } = postapocalypticMovies
+const extractHtmlFromSource = source => {
+  const { htmlContent, mainSeparatorRegEx, imageSeparatorClass, fieldSplitterClass } = source
   const splicedItems = htmlContent.split(new RegExp(mainSeparatorRegEx)).filter(Boolean)
-
   const data = []
 
-  splicedItems.forEach(string => {
-    const imgFile = getImageFileName(string)
-    const fields = getFields(string)
-    const content = getContent(string)
-
-    data.push({
-      _id: randomId(12),
-      root: HTML_ROOTS.POST_MOVIES,
-      img: imgFile,
-      ...fields,
-      ...content
-    })
-  })
-
-  return data
-}
-const extractPostapocalypticStories = () => {
-  const { htmlContent, mainSeparatorRegEx, imageSeparatorClass, fieldSplitterClass } = postapocalypticStories
-  const splicedItems = htmlContent.split(new RegExp(mainSeparatorRegEx)).filter(Boolean)
-  console.log(splicedItems.length)
-  const data = []
   splicedItems.forEach(string => {
     const imgFile = getImageFileName(string, imageSeparatorClass)
     const fields = getFields(string, fieldSplitterClass)
@@ -135,7 +120,6 @@ const extractPostapocalypticStories = () => {
   return data
 }
 
-export {
-  extractPostapocalypticMovies,
-  extractPostapocalypticStories
-}
+
+
+export default extractHtmlFromSource

@@ -1,6 +1,6 @@
 export default {
-  mainSeparatorRegEx: /<div[^<>]*class="separator2"[^<>]*>[\\s\\S]*?<\/div>/gm,
-  imageSeparatorClass: 'imgksiazki',
+  mainSeparatorRegEx: /<div[^<>]*class="separator2"[^<>]*>[^<>]*<\/div>/gm,
+  imageSeparatorClass: /<[^>]+class="imgksiazki"/gm,
   fieldSplitterClass: 'niebieski',
   htmlContent: `<div class="separator2" id="autostopem">Autostopem przez Galaktykę</div>
 <p><img src="obrazki/postkultura/ksiazki/autostopem_przez_galaktyke.jpg" alt="Okładka książki 'Autostopem przez Galaktykę'" title="Douglas Adams - Autostopem przez Galaktykę" class="imgksiazki" height="286">
