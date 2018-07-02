@@ -1,5 +1,3 @@
-import postapocalypticMovies from '../../old/sources/postapocalypticMovies'
-import postapocalypticStories from '../../old/sources/postapocalypticStories'
 import randomId from 'random-id'
 import consts from '../constants'
 import isArray from 'lodash/array'
@@ -24,7 +22,7 @@ const charsRemovers = {
 
 const getImageFileName = (string, splitter) => {
   if (isArray(splitter)) {
-    
+
   } else {
     const imgTag = string.match(splitter)[0].replace(/(\r\n\t|\n|\r\t)/gm, "")
     const imgAlt = imgTag.match(imgAltPattern)[1].replace(`'`, "").replace(`\'`, "")
