@@ -10,14 +10,12 @@ export default {
     autoComplete: (_, data, context) => search.getAutoCompleteResults(data),
     searchResults: (_, data, context) => search.getSearchResults(data),
     articlesAll: (_, data, context) => article.list(data),
+    user: (_, data, context) => user.getUser(context)
   },
   Mutation: {
     signIn: (_, data, context) => user.signIn(data)
   },
   Pagination: {
     pages: ({ total, limit }) => Math.ceil(total / limit)
-  },
+  }
 }
-
-
-

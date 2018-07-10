@@ -1,6 +1,7 @@
 import randomId from 'random-id'
 import consts from '../constants'
-import isArray from 'lodash/array'
+import isArray from 'lodash/isArray'
+import get from 'lodash/get'
 const { HTML_ROOTS } = consts
 
 const fieldSplit = '<span[^<>]*class="niebieski"[^<>]*>[\\s\\S]*?</span>'
@@ -22,10 +23,31 @@ const charsRemovers = {
 
 const getImageFileName = (string, splitter) => {
   if (isArray(splitter)) {
-
+    let allImages = []
+    splitter.forEach(splitterString => {
+      const results = string.match(splitterString)
+      if (results && results.length) {
+        allImages = results.map(res => {
+          const tag = res.replace(/(\r\n\t|\n|\r\t)/gm, '')
+          const alt = tag.match(imgAltPattern)[1].replace(`'`, '').replace('\'', '')
+          const arrayOfMatchedUrl = tag.match(imgSrcPattern)[1]
+          const fileName = arrayOfMatchedUrl.substring(arrayOfMatchedUrl.lastIndexOf('/') + 1)
+          console.log(fileName)
+          return {
+            fileName,
+            alt
+          }
+        })
+      }
+    })
+    if (allImages.length > 1) {
+      return allImages
+    } else {
+      return allImages[0]
+    }
   } else {
-    const imgTag = string.match(splitter)[0].replace(/(\r\n\t|\n|\r\t)/gm, "")
-    const imgAlt = imgTag.match(imgAltPattern)[1].replace(`'`, "").replace(`\'`, "")
+    const imgTag = string.match(splitter)[0].replace(/(\r\n\t|\n|\r\t)/gm, '')
+    const imgAlt = imgTag.match(imgAltPattern)[1].replace(`'`, '').replace('\'', '')
     const arrayOfMatchedUrl = imgTag.match(imgSrcPattern)[1]
     const fileName = arrayOfMatchedUrl.substring(arrayOfMatchedUrl.lastIndexOf('/') + 1)
 
@@ -103,21 +125,19 @@ const extractHtmlFromSource = source => {
 
   splicedItems.forEach(string => {
     const imgFile = getImageFileName(string, imageSeparatorClass)
-    const fields = getFields(string, fieldSplitterClass)
-    const content = getContent(string)
-
-    data.push({
-      _id: randomId(12),
-      root: HTML_ROOTS.POST_MOVIES,
-      img: imgFile,
-      ...fields,
-      ...content
-    })
+    // const fields = getFields(string, fieldSplitterClass)
+    // const content = getContent(string)
+    // console.log(imgFile)
+    // data.push({
+    //   _id: randomId(12),
+    //   root: HTML_ROOTS.POST_MOVIES,
+    //   img: imgFile,
+    //   ...fields,
+    //   ...content
+    // })
   })
 
   return data
 }
-
-
 
 export default extractHtmlFromSource

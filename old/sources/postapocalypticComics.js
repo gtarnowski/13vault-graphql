@@ -1,8 +1,25 @@
 export default {
   mainSeparatorRegEx: /<div[^<>]*class="separator2"[^<>]*>[^<>]*<\/div>/gm,
-  imageSeparatorClass: /<[^>]+class="img150"/gm,
+  imageSeparatorClass: [/<[^>]+class="img150"/gm, /<[^>]+class="imgksiazki"/gm],
   fieldSplitterClass: 'niebieski',
-  htmlContent: `<div class="separator2" id="aliens">Aliens - Zbawienie / Ofiarowanie</div>
+  htmlContent: `<div class="separator2" id="highschool">Highschool of the Dead</div>
+<p><img src="obrazki/postkultura/komiksy/highschool_of_the_dead_1.jpg" alt="Daisuke Sato, Shouji Sato - Highschool of the Dead" title="Daisuke Sato, Shouji Sato - Highschool of the Dead" class="img150" align="left" height="215">
+<img src="obrazki/postkultura/komiksy/highschool_of_the_dead_2.jpg" alt="Daisuke Sato, Shouji Sato - Highschool of the Dead" title="Daisuke Sato, Shouji Sato - Highschool of the Dead" class="img150" align="left" height="215">
+<img src="obrazki/postkultura/komiksy/highschool_of_the_dead_3.jpg" alt="Daisuke Sato, Shouji Sato - Highschool of the Dead" title="Daisuke Sato, Shouji Sato - Highschool of the Dead" class="img150" align="left" height="215">
+<span class="niebieski">Autor:</span> Daisuke Sato, Shouji Sato<br>
+<span class="niebieski">Tytuł:</span> Highschool of the Dead<br>
+<span class="niebieski">Wydawca:</span> Wydawnictwo Waneko 2011-2012<br>
+</p>
+<p><span class="nawias">(Recenzja dotyczy pierwszych trzech tomów mangi)</span></p>
+<p>"Superprodukcja", film Juliusza Machulskiego z 2003 roku, z początku miał nosić inny tytuł - "Sex &amp; przemoc". I właśnie tak można w skrócie opisać <span class="p-name3">Highschool of the Dead</span>, bo nic innego się tutaj nie pojawia. Ale któż nie kocha seksu i przemocy?</p>
+<p>Fabuła nie jest wyszukana - kolejny, z pozoru zwykły dzień Takashiego Komuro zmienia się w koszmar - w mgnieniu oka większość ludzi dookoła niego zamienia się w standardowe zombie. Zostaniesz ugryziony - stajesz się jednym z monstrów. Komuro szybko łączy siły z garstką ocalałych i razem próbują przetrwać. I tak oto protagonista zostaje otoczony cycatymi licealistkami*, jeszcze bardziej cycatą pielęgniarką oraz niskim, grubym amatorem broni**. Przemieszczając się z miejsca na miejsce, grupka pod przywództwem Komuro natrafia na najróżniejsze przeszkody i jest świadkiem "Syndromu Żądzy Mordu", który opanował dużą część pozostałych przy życiu ludzi. Po drodze, zdobywając coraz to lepszą broń, przedzierają się przez hordy zombie. I tutaj można wymienić jeden ze znacznych plusów, mianowicie w Highschool of the Dead pojawiają się modele broni, która rzeczywiście istnieje - nie są to jakieś m16 nazywane po prostu karabinami. Bohaterowie otrzymują do rąk takie spluwy, jak Springfield M1A1 czy Barnett Wildcat C5.</p>
+<p align="center"><a href="ie_komiksy_highschool_1-3.htm" title="Highschool of the Dead - recenzja"><span class="minus2"><b>[Czytaj całość recenzji]</b></span></a></p>
+<p align="right">© 2012 <strong>Pilarious</strong></p> 
+<table width="100%"><tbody><tr>
+<td align="right"><a href="#menu"><strong>⇒ Menu</strong></a></td>
+</tr></tbody></table><br> 
+  
+<div class="separator2" id="aliens">Aliens - Zbawienie / Ofiarowanie</div>
 <p><img src="obrazki/postkultura/komiksy/aliens_zbawienie_ofiarowanie.jpg" alt="Okładka komiksu 'Aliens - Zbawienie / Ofiarowanie'" title="Aliens - Zbawienie / Ofiarowanie " class="imgksiazki">
 <span class="niebieski">Scenariusz:</span> Dave Gibbons, Peter Milligan<br>
 <span class="niebieski">Rysunki:</span> Paul Johnson, Mike Mignola<br>
@@ -21,8 +38,8 @@ export default {
 <p align="right">© 2017 <strong>Veskern</strong></p> 
 <table width="100%"><tbody><tr>
 <td align="right"><a href="#menu"><strong>⇒ Menu</strong></a></td>
-</tr></tbody></table><br> 
- 
+</tr></tbody></table><br>
+
 <div class="separator2" id="battleangel">Battle Angel Alita</div>
 <p><img src="obrazki/postkultura/komiksy/battle_angel.jpg" alt="Okładka komiksu 'Battle Angel Alita'" title="Yukito Kishiro - Battle Angel Alita" class="imgksiazki">
 <span class="niebieski">Autor:</span> Yukito Kishiro<br>
@@ -36,7 +53,7 @@ Alita - dziewczyna której z oryginalnego ciała pozostała jedynie głowa - nie
 <p align="right">© 2010 <strong>pucka</strong></p> 
 <table width="100%"><tbody><tr>
 <td align="right"><a href="#menu"><strong>⇒ Menu</strong></a></td>
-</tr></tbody></table><br> 
+</tr></tbody></table><br>
   
 <div class="separator2" id="HiroEde">Eden</div>
 <p><img src="obrazki/postkultura/komiksy/eden_v01_s.jpg" alt="Okładka komiksu 'Eden: It's an Endless World'" title="Hiroki Endo - Eden: It's an Endless World" class="imgksiazki">
@@ -52,22 +69,7 @@ Alita - dziewczyna której z oryginalnego ciała pozostała jedynie głowa - nie
 <td align="right"><a href="#menu"><strong>⇒ Menu</strong></a></td>
 </tr></tbody></table><br> 
  
-<div class="separator2" id="highschool">Highschool of the Dead</div>
-<p><img src="obrazki/postkultura/komiksy/highschool_of_the_dead_1.jpg" alt="Daisuke Sato, Shouji Sato - Highschool of the Dead" title="Daisuke Sato, Shouji Sato - Highschool of the Dead" class="img150" align="left" height="215">
-<img src="obrazki/postkultura/komiksy/highschool_of_the_dead_2.jpg" alt="Daisuke Sato, Shouji Sato - Highschool of the Dead" title="Daisuke Sato, Shouji Sato - Highschool of the Dead" class="img150" align="left" height="215">
-<img src="obrazki/postkultura/komiksy/highschool_of_the_dead_3.jpg" alt="Daisuke Sato, Shouji Sato - Highschool of the Dead" title="Daisuke Sato, Shouji Sato - Highschool of the Dead" class="img150" align="left" height="215">
-<span class="niebieski">Autor:</span> Daisuke Sato, Shouji Sato<br>
-<span class="niebieski">Tytuł:</span> Highschool of the Dead<br>
-<span class="niebieski">Wydawca:</span> Wydawnictwo Waneko 2011-2012<br>
-</p>
-<p><span class="nawias">(Recenzja dotyczy pierwszych trzech tomów mangi)</span></p>
-<p>"Superprodukcja", film Juliusza Machulskiego z 2003 roku, z początku miał nosić inny tytuł - "Sex &amp; przemoc". I właśnie tak można w skrócie opisać <span class="p-name3">Highschool of the Dead</span>, bo nic innego się tutaj nie pojawia. Ale któż nie kocha seksu i przemocy?</p>
-<p>Fabuła nie jest wyszukana - kolejny, z pozoru zwykły dzień Takashiego Komuro zmienia się w koszmar - w mgnieniu oka większość ludzi dookoła niego zamienia się w standardowe zombie. Zostaniesz ugryziony - stajesz się jednym z monstrów. Komuro szybko łączy siły z garstką ocalałych i razem próbują przetrwać. I tak oto protagonista zostaje otoczony cycatymi licealistkami*, jeszcze bardziej cycatą pielęgniarką oraz niskim, grubym amatorem broni**. Przemieszczając się z miejsca na miejsce, grupka pod przywództwem Komuro natrafia na najróżniejsze przeszkody i jest świadkiem "Syndromu Żądzy Mordu", który opanował dużą część pozostałych przy życiu ludzi. Po drodze, zdobywając coraz to lepszą broń, przedzierają się przez hordy zombie. I tutaj można wymienić jeden ze znacznych plusów, mianowicie w Highschool of the Dead pojawiają się modele broni, która rzeczywiście istnieje - nie są to jakieś m16 nazywane po prostu karabinami. Bohaterowie otrzymują do rąk takie spluwy, jak Springfield M1A1 czy Barnett Wildcat C5.</p>
-<p align="center"><a href="ie_komiksy_highschool_1-3.htm" title="Highschool of the Dead - recenzja"><span class="minus2"><b>[Czytaj całość recenzji]</b></span></a></p>
-<p align="right">© 2012 <strong>Pilarious</strong></p> 
-<table width="100%"><tbody><tr>
-<td align="right"><a href="#menu"><strong>⇒ Menu</strong></a></td>
-</tr></tbody></table><br> 
+
  
 <div align="center"><img src="second5.gif" width="247" height="19"><br><br></div>
  

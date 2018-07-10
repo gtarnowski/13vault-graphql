@@ -2,35 +2,6 @@ schema {
   query: Query
   mutation: Mutation
 }
-type SearchResults {
-  results: [SearchResult]
-  pagination: Pagination
-}
-type SearchResult {
-  _id: ID
-  title: String
-  content: String
-  category: String
-  img: Imgs
-}
-type SearchAutoComplete {
-  _id: ID!
-  name: String!
-  collectionName: String!
-  documentId: String!
-}
-type AutoComplete {
-  autoComplete: [SearchAutoComplete]
-  allResultsCount: Int
-}
-type Imgs {
-  fileName: String
-  alt: String
-}
-type Fields {
-  name: String
-  value: String
-}
 enum ArticleRoots {
   POST_MOVIES
 }
@@ -47,6 +18,18 @@ type Articles {
   articles: [Article]
   pagination: Pagination
 }
+type AutoComplete {
+  autoComplete: [SearchAutoComplete]
+  allResultsCount: Int
+}
+type Fields {
+  name: String
+  value: String
+}
+type Imgs {
+  fileName: String
+  alt: String
+}
 type News {
   _id: ID
   userId: String
@@ -57,21 +40,9 @@ type News {
   description: String
   date: String
 }
-
 type NewsAll {
   news: [News]
   pagination: Pagination
-}
-
-type Users {
-  _id: ID!
-  email: String!
-  username: String!
-  password: String!
-  firstName: String
-  lastNme: String
-  role: String
-  duties: String
 }
 type Pagination {
   # total number of records mathing search criteria
@@ -90,6 +61,23 @@ input Page {
   # which page to get, counted from 1
   page: Int! = 1
 }
+type SearchResults {
+  results: [SearchResult]
+  pagination: Pagination
+}
+type SearchResult {
+  _id: ID
+  title: String
+  content: String
+  category: String
+  img: Imgs
+}
+type SearchAutoComplete {
+  _id: ID!
+  name: String!
+  collectionName: String!
+  documentId: String!
+}
 type SimpleResponseReason {
   code: String
   message: String
@@ -102,7 +90,41 @@ type SignInResponse {
   result: SimpleResponse!
   token: String
 }
-
+type SignUpErrors {
+  email: String
+  password: String
+  passwordConfirmation: String
+  phone: String
+  firstName: String
+  lastName: String
+  title: String
+  companyName: String
+}
+type SignUpResponse {
+  errors: SignUpErrors
+  result: SimpleResponse!
+  token: String
+}
+type Users {
+  _id: ID!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String
+  lastNme: String
+  role: String
+  duties: String
+}
+type User {
+  _id: ID
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  initials: String
+  fullName: String
+  role: String
+}
 type Query {
   autoComplete (
     regex: String!
@@ -125,8 +147,8 @@ type Query {
     limit: Int
     page: Int
   ): SearchResults
+  user: User
 }
-
 type Mutation {
   signIn(username: String! password: String!): SignInResponse
 }

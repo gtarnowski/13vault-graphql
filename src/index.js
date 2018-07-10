@@ -13,11 +13,11 @@ import {
   oldHtmlMigration
 } from './lib/migrations'
 
-
 dotenv.config({ path: `${__dirname}/.env` })
 const resolvers = require('./resolvers')
 const schema = makeExecutableSchema({
   typeDefs: mySchema,
+
   tracing: process.env.NODE_ENV !== 'production',
   resolvers: resolvers.default,
   formatError: err => {
@@ -27,14 +27,18 @@ const schema = makeExecutableSchema({
   }
 })
 
-oldHtmlMigration()
+// oldHtmlMigration()
 
-
-const app = express();
+const app = express()
 app.use(cors())
 app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
   schema,
   cacheControl: true,
+  context: {
+    'user-agent': request.headers['user-agent'],
+    authorization: request.headers.authorization,
+    ip: request.connection.remoteAddress
+  }
 })))
 app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 app.listen(4000, () => console.log('Express GraphQL Server Now'))

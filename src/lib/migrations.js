@@ -10,6 +10,17 @@ async function usersMigrateFromSqlDatabase () {
   const users = await DB.query(`SELECT * FROM schron_users`)
   Mongo.createCollection('Users')
   const newUsers = users.map(({ userid, nick, imie, nazwisko, pass, zrobil, mail }) => {
+    if (nick === 'Gość 13S') {
+      return {
+        email: 'tarnasm89@gmail.com',
+        username: nick,
+        firstName: 'Gość',
+        lastName: 'Konto',
+        password: pass,
+        duties: zrobil,
+        oldUserId: userid
+      }
+    }
     return {
       email: mail,
       username: nick,
@@ -20,7 +31,6 @@ async function usersMigrateFromSqlDatabase () {
       oldUserId: userid
     }
   })
-
 
   Mongo.insert('Users', newUsers)
 }
@@ -33,12 +43,12 @@ async function newsMigrateFromSqlDatabase () {
   const allData = news.map((row) => {
     const user = users.find(({ username, email }) => username === row.nick || email === row.mail)
     if (!row.tytul || !row.tresc) return false
-    const data =  {
+    const data = {
       _id: randomId(12),
       userId: user && user._id,
       username: row.nick,
       email: row.mail,
-      title: row.tytul.replace(/<\/?[^>]+(>|$)/g, ""),
+      title: row.tytul.replace(/<\/?[^>]+(>|$)/g, ''),
       content: row.tresc,
       date: row.data,
       commentsCount: row.komentarzy,
@@ -49,11 +59,10 @@ async function newsMigrateFromSqlDatabase () {
     autoCompleteData.push({
       name: data.title,
       collectionName: 'News',
-      documentId: data._id,
+      documentId: data._id
     })
 
     return data
-
   }).filter(Boolean)
   createRelatedAutocomplete()
 
@@ -62,12 +71,11 @@ async function newsMigrateFromSqlDatabase () {
 }
 
 async function oldHtmlMigration () {
-  console.log(extractHtmlFromSource(OLD_SOURCES.postapocalypticComics))
+  extractHtmlFromSource(OLD_SOURCES.postapocalypticComics)
 
   // const data = extractHtmlFromSource()
   // console.log(data)
   // Mongo.insert('Articles', data)
-
 }
 
 export {

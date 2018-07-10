@@ -55,3 +55,32 @@ export async function signIn ({ username, password }) {
     token: generateToken(user._id)
   }
 }
+
+export function getUser (context) {
+  let token = context.authorization
+
+  if (!token) {
+    return null
+  }
+
+  if (token.match(/^Bearer /)) {
+    token = token.split(' ')[1]
+  }
+
+  try {
+    const decrypted = jwt.verify(token, JWT_SECRET)
+    if (!decrypted.user) {
+      return null
+    }
+    const user = decrypted.user
+
+    return {
+      ...user,
+      initials: user.firstName[0].toUpperCase() + user.lastName[0].toUpperCase(),
+      fullName: `${user.firstName} ${user.lastName}`
+    }
+
+  } catch (e) {
+    return null
+  }
+}
